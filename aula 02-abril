@@ -1,0 +1,55 @@
+02/04
+
+ALOHA puro e ALOHA segmentado (slotted)
+
+
+                    CSMA - Carrier Sense Multiple Access 
+Melhorou a questão de não iniciar uma transmissão caso outra já esteja ocorrendo.
+problema: duas estações transmitindo ao mesmo tempo.
+
+    1-persistent CSMA (probabilidade de transmissão = 1)
+- Ouve o canal
+- Se ocioso, transmite o frame
+- Se ocorrer colisão, espera um tempo ALEATORIO e reinicia o processo.
+
+    nonpersistent CSMA
+- Igual o anterior, exceto que espera um tmepo aleatório para verificar se o canal está ocioso. Caso esteja, inicia o processo de transmissão.
+
+    p-persistent CSMA
+- Há uma probabilidade p de enviar o pacote
+- Ouve o canal, se ocupado, espera o PRÓXIMO slot de tempo
+- Se estiver livre: transmite com probabilidade p e não transmite com probabilidade q = 1-p.
+- Repete até que o pacote seja transmitido.
+
+    CSMA com detecção de colisão (CSMA/CD)
+- Estações devem ser capazes de ouvir o canal enquanto transmitem, caso o que está sendo ouvido seja diferente do que está sendo transmitido, está ocorrendo uma colisão. Nesse caso, a transmissão é interrompida (Back off exponencial).
+- Nova tentativa é realizada após um período de tempo aleatório
+
+                    Protocolos livres de transmissão
+
+    Protocolo Bit-Map
+Cada estação tem um slot e sinaliza o desejo de enviar dados durante o contention(disputa) e depois é enviado na ordem
+problemas: quantidade de slots necessários para envio quando a rede possui muitas máquinas, o envio é sempre feito de x em x tempo (após o período de disputa)
+
+    Passagem de tokens
+Topologia token ring, onde a permissão para envio é passada para cada uma estação que pode ou não querer transmitir e então é passada para a próxima estação.
+
+    Contagem regressiva binária
+Cada estação recebe uma numeração binária, as estações de maior valor enviam primeiro, são retiradas e o processo é repetido.
+problema: estações de valor menor demoram mais tempo para poder enviar.
+
+
+                        Protocolos LAN sem fio
+- Normalmente não conseguem detectar colisões, pois enviam dados para uma estação central.
+- Um grande problema é a interferência no receptor, não no transmissor.
+
+
+    CSMA/CA (CSMA with Colision Avoidance)
+- Similar ao CSMA/CD, pois ouve o canal antes do envio e possui backoff exponencial após detectar colisão
+- Estações que querem transmitir esperam um backoff aleatório de slots (a não ser que tenham utilizado o canal recentemente)
+- Quando o backoff chega a zero, transmite o pacote caso o canal esteja livre
+- Se o frame é enviado sem problemas, é enviado um sinal de reconhecimento do receptor para confirmar que o frame foi recebido. Caso não receba o sinla, houve um erro (sendo colisão ou não)
+problema: caso o sinal de reconhecimento (acknowledge) não seja recebido corretamente, o quadro é tratado como erro mesmo tendo sido enviado sem problemas.
+
+
+
